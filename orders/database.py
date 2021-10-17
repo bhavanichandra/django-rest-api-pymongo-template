@@ -1,8 +1,9 @@
-from pymongo import MongoClient
+import json
 from uuid import uuid4
+
 from bson import ObjectId
 from bson.json_util import dumps
-import json
+from pymongo import MongoClient
 
 from .custom_exceptions import DatabaseInitException
 
@@ -84,6 +85,10 @@ class Product:
             self.products = orders_tracker.create_collection(self.collection_name)
         else:
             self.products = orders_tracker.get_collection(self.collection_name)
+
+    def get_products_by_id(self, pk):
+        mongo_id = ObjectId(pk)
+        return json.loads(dumps(self.products.find_one({'_id': mongo_id})))
 
     def save(self):
         if self.products is None:
