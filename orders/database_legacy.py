@@ -38,7 +38,7 @@ class Order:
         self.products = products
 
     def init(self):
-        if does_collection_exists(self.collection_name):
+        if not does_collection_exists(self.collection_name):
             self.orders = orders_tracker.create_collection(self.collection_name)
         else:
             self.orders = orders_tracker.get_collection(self.collection_name)
