@@ -1,9 +1,5 @@
-from typing import TypeVar, Generic
-
 from django.conf import settings
 from pymongo import MongoClient
-
-T = TypeVar('T')
 
 
 class MongoDBClient(object):
@@ -14,13 +10,26 @@ class MongoDBClient(object):
         if cls._instance is None:
             cls._instance = super(MongoDBClient, cls).__new__(cls)
             cls._connection_str = settings.CUSTOM_MONGODB_URL
+        return cls._instance
 
-    def __db(self, database_name):
+    def __db__(self, database_name):
         client = MongoClient(self._connection_str)
         database = client[database_name]
         return database
 
 
-class Collection(Generic[T]):
-    def __init__(self, collection_name) -> None:
-        self.collection_name = collection_name
+class Collection:
+    @staticmethod
+    def get_collection(name: str, dbname: str):
+        client = MongoDBClient()
+        database = client.__db__(dbname)
+        collection_list = list(database.list_collections())
+        does_collection_exists = False
+        for collection in collection_list:
+            if collection['name'] == name:
+                does_collection_exists = True
+                break
+        if does_collection_exists:
+            return database.get_collection(name)
+        else:
+            return database.create_collection(name)
