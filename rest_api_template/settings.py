@@ -121,3 +121,4 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CUSTOM_MONGODB_URL = 'mongodb+srv://api_user:Th3q02nCvzUF4lUI@cluster0.yerkz.mongodb.net'
+CUSTOM_MONGODB_DATABASE = 'orders_tracker'

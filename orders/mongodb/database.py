@@ -33,3 +33,21 @@ class Collection:
             return database.get_collection(name)
         else:
             return database.create_collection(name)
+
+
+class Order:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            return Collection.get_collection('orders', settings.CUSTOM_MONGODB_DATABASE)
+        return cls._instance
+
+
+class Product:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            return Collection.get_collection('orders', settings.CUSTOM_MONGODB_DATABASE)
+        return cls._instance

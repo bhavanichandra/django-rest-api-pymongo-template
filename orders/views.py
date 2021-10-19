@@ -4,6 +4,8 @@ from rest_framework.views import APIView
 
 from .database_legacy import Order, Product
 
+from .mongodb import util
+
 
 # Create your views here.
 
@@ -11,8 +13,9 @@ from .database_legacy import Order, Product
 class OrdersView(APIView):
     def get(self, request):
         try:
-            order = Order()
-            order_list = order.get_all_orders()
+            # order = Order()
+            order_list = util.get_all_orders(request.query_params['expand_products'])
+            print(order_list)
             data = {
                 'success': True,
                 'result': order_list
@@ -30,7 +33,8 @@ class OrdersView(APIView):
     def post(self, request):
         try:
             selected_products = list(request.data)
-            products = [Product(product['price'], product['quantity'], product['name']) for product in selected_products]
+            products = [Product(product['price'], product['quantity'], product['name']) for product in
+                        selected_products]
             product_ids = []
             for product in products:
                 saved_product_id = product.save()
