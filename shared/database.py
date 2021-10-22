@@ -26,7 +26,7 @@ class Collection:
         collection_list = list(database.list_collections())
         does_collection_exists = False
         for collection in collection_list:
-            if collection['name'] == name:
+            if collection.get('name') == name:
                 does_collection_exists = True
                 break
         if does_collection_exists:
@@ -35,7 +35,7 @@ class Collection:
             return database.create_collection(name)
 
 
-class Order:
+class OrderCollection:
     _instance = None
 
     def __new__(cls):
@@ -44,10 +44,10 @@ class Order:
         return cls._instance
 
 
-class Product:
+class ProductCollection:
     _instance = None
 
     def __new__(cls):
         if cls._instance is None:
-            return Collection.get_collection('orders', settings.CUSTOM_MONGODB_DATABASE)
+            return Collection.get_collection('products', settings.CUSTOM_MONGODB_DATABASE)
         return cls._instance
