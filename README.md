@@ -4,7 +4,7 @@
 | --------------------- | --------------- |
 | MongoDB Driver        | PyMongo         |
 | Using ODM             | No              |
-| Transaction Support   | No              |
+| Transaction Support   | Yes             |
 | Microservices Support | No              |
 -------------------------------------------
 
