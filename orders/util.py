@@ -66,8 +66,10 @@ def get_products_by_name(name: str) -> list[Product]:
     :param name: Product Name
     :return: list of products
     """
-    products = products_collection.find({"name": name})
-    if len(list(products)) > 0:
-        return json.loads(dumps(products))
+    products_cursor = products_collection.find({"name": name})
+    products = json.loads(dumps(products_cursor))
+    if len(products) != 0:
+        return products
     else:
+        print('Error')
         raise RecordNotFound()
