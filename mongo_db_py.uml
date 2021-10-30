@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>Python</ID>
+  <OriginalElement>#/Users/bhavanichandra/personal/muler-opensource/django-rest-project-template/shared/database_transactions.py</OriginalElement>
+  <nodes>
+    <node x="48.0" y="240.0">shared.database_transactions.DefaultMongoAdapter</node>
+    <node x="76.5" y="160.0">shared.database_transactions.MongoAdapter</node>
+    <node x="489.5" y="160.0">shared.database_transactions.MongoDBClient</node>
+    <node x="399.25" y="0.0">typing.Hashable</node>
+    <node x="0.0" y="320.0">shared.database_transactions.TransactionEnabledMongoAdapter</node>
+    <node x="438.25" y="80.0">object</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="shared.database_transactions.MongoAdapter" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-15.0" />
+      <point x="273.0" y="135.0" />
+      <point x="481.25" y="135.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="shared.database_transactions.MongoDBClient" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-15.0" />
+      <point x="689.5" y="135.0" />
+      <point x="481.25" y="135.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="object" target="typing.Hashable" relationship="INTERFACE">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="shared.database_transactions.TransactionEnabledMongoAdapter" target="shared.database_transactions.DefaultMongoAdapter" relationship="REALIZATION">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="shared.database_transactions.DefaultMongoAdapter" target="shared.database_transactions.MongoAdapter" relationship="REALIZATION">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="445.0" y="175.0" />
+  <SelectedNodes />
+  <Categories />
+</Diagram>
+

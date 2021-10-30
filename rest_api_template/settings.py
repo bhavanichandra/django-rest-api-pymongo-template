@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'rest_api_template.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3'
     }
 }
 
@@ -125,3 +125,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CUSTOM_MONGODB_URL = str(os.getenv('MONGODB_CONNECTION_STR'))
 CUSTOM_MONGODB_DATABASE = 'orders_tracker'
+

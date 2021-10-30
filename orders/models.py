@@ -1,5 +1,3 @@
-from django.db import models
-
 from bson import ObjectId
 from typing_extensions import TypedDict
 # Create your models here.
