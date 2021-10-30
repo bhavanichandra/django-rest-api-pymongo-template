@@ -6,6 +6,7 @@
 | Using ODM             | No              |
 | Transaction Support   | Yes             |
 | Microservices Support | No              |
+
 -------------------------------------------
 
 This repo uses pymongo driver to connect to MongoDB. This repo contains three parts
@@ -18,12 +19,13 @@ This repo uses pymongo driver to connect to MongoDB. This repo contains three pa
 
 This python module contains three python files each does its own part of the job.
 
-- database.py:
-    - This file contains the logic to instantiate the pymongo client
-    - Classes `MongoDBClient` singleton class that extends `Object` class, `Collection` a static class that
-      has `MongoDBClient` instance which creates collection based on Database name and collection name dynamically
-    - It also has `OrderCollection` and `ProductCollection` classes which creates singleton classes that
-      uses `Collection` class to get the collection pointer for the database
+- database_transactions.py:
+    - The file contains three classes `MongoDBClient`,  `MongoAdapter` and `TransactionEnabledMongoAdapter`
+    - The class `MongoDBClient` is a wrapper class for pymongo driver (Don't Modify this class).
+    - The class `MongoAdapter` and `DefaultMongoAdapter` is a wrapper class to provide a common interface for connecting
+      to MongoDB using `MongoDBClient`.
+    - `DefaultMongoAdapter` contains an execute function to execute on MongoDB.
+    - The class `TransactionEnabledMongoAdapter` is an extended class to provide transaction support.
 - helper.py:
     - This file mostly will have helper functions that makes our life easier
 - wrapper.py:
@@ -42,4 +44,26 @@ This python module contains three python files each does its own part of the job
 - `models.py` file contains the type definitions for `Order` and `Product`. Used `mypy` library to have the types
 - `util.py` file contains the actual logic in which the app contacts the database file from shared python module
 
+## How to use this template
 
+### Prerequisites:
+
+- Use `make run` to configure the environment and to install dependencies to the virtual environment.
+- For Windows users, use `make OS=win run` to run the app
+- Create an .env file in the root directory of the project, with `MONGODB_CONNECTION_STR` configured. Please check
+  `settings.py` for all the properties loaded from the .env file.
+
+The following steps describe the steps to use this template:
+
+- Create an instance of `MongoAdapter` class.
+- Provide the `database_name` in the constructor. By default, it takes from the environment
+  variable `CUSTOM_MONGODB_DATABASE`
+- Create a `repository.py` in the app directory (`orders` in this app) or where ever you want to create.
+- Create your queries / inserts / updates in `repository.py` with all of your arguments and also have **session**
+  parameter. Basically this file contains all the logic to interact with the database with transactions.
+- In the `views.py`, import the `repository` file and use it where ever its applicable
+- To use it, create an instance of `TransactionEnabledMongoAdapter` class.
+    - Next set the callback function to one of the functions from `repository.py`.
+    - Next call execute function with the arguments that the callback function requires.
+
+_**Note**_: For more clarity please check my usage of this template in this simple app.
